@@ -11,12 +11,13 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnectionString"));
 });
-
+builder.Services.AddCors();
 
 
 var app = builder.Build();
 
-
+app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod()
+.WithOrigins("http://localhost:4200","https://localhost:4200"));
 
 
 app.UseHttpsRedirection();
